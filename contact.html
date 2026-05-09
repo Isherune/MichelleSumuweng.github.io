@@ -1,174 +1,478 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Personal Page - Contact</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Michelle Sumuweng</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --plum:       #2d004f;
+      --violet:     #6a1b9a;
+      --lavender:   #9b5fc7;
+      --lilac:      #d4b8ec;
+      --mist:       #f0e6ff;
+      --cream:      #fdf8ff;
+      --text-dark:  #1a0030;
+      --text-mid:   #5a3570;
+      --text-light: #9e7fb8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(222, 139, 255, 0.1);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--lilac);
+    }
+
+    .nav-brand {
+      font-family: 'Cormorant Garamond', serif; 
+      font-size: 3.2rem; 
+      font-weight: 600;
+      color: var(--plum); 
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+    .nav-links a {
+      font-size: 1.35rem; 
+      font-weight: 500; 
+      letter-spacing: 0.08em; 
+      text-transform: uppercase;
+      color: var(--text-mid); 
+      text-decoration: none;
+      position: relative; 
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px;
+      background: var(--violet); transform: scaleX(0); transition: transform 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--violet); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+    .nav-links a.active { color: var(--violet); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 7rem 6rem 6rem;
+      background: linear-gradient(135deg, var(--mist) 0%, var(--cream) 60%);
+      border-bottom: 1px solid var(--lilac);
+      position: relative; overflow: hidden;
+    }
+
+    .page-header::before {
+      content: 'CONTACT';
+      position: absolute; right: 3rem; top: 50%; transform: translateY(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(6rem, 15vw, 12rem);
+      font-weight: 300; color: rgba(212,184,236,0.25);
+      letter-spacing: 0.1em; pointer-events: none;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 4.5rem); 
+      font-weight: 300; color: var(--plum);
+    }
+    .page-title em { font-style: italic; color: var(--lavender); }
+    .page-sub {
+      font-family: 'Georgia', serif;
+      font-size: 1.25rem; color: var(--text-mid); margin-top: 0.8rem;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .main-content {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      padding: 3.5rem 2rem 4rem;
+    }
+
+    .info-panel {
+      width: 100%;
+      max-width: 620px;
+    }
+
+    .info-section-label {
+      font-family: 'Georgia', serif;
+      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--lavender); margin-bottom: 1rem; display: block;
+    }
+
+    /* ── CARDS ── */
+    .info-card {
+      border: 1px solid var(--lilac); background: #fff;
+      margin-bottom: 1.5rem; overflow: hidden;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s;
+    }
+
+    .info-card.visible { opacity: 1; transform: translateY(0); }
+    .info-card:hover { box-shadow: 0 6px 24px rgba(106,27,154,0.1); }
+
+    .info-card-header {
+      background: var(--mist); padding: 0.85rem 1.4rem;
+      border-bottom: 1px solid var(--lilac);
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+
+    .info-card-header-icon { font-size: 1rem; }
+
+    .info-card-title {
+      font-size: 1rem; font-weight: 600; color: var(--plum);
+    }
+
+    .info-card-body { padding: 1.2rem 1.4rem; }
+
+    /* ── INFO ROWS ── */
+    .info-row {
+      display: flex; gap: 1rem; padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(212,184,236,0.3);
+      align-items: flex-start;
+    }
+
+    .info-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .info-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+
+    .info-label {
+      font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--lavender); margin-bottom: 0.2rem;
+    }
+
+    .info-value {
+      font-size: 0.88rem; color: var(--text-mid); line-height: 1.6;
+    }
+
+    .info-value a { color: var(--violet); text-decoration: none; }
+    .info-value a:hover { text-decoration: underline; }
+
+    .badge {
+      display: inline-block;
+      background: var(--mist);
+      border: 1px solid var(--lilac);
+      color: var(--violet);
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.65rem;
+      border-radius: 2px;
+      margin-top: 0.2rem;
+    }
+
+    /* ── SOCIAL LINKS ── */
+    .social-link {
+      display: flex; align-items: center; gap: 0.8rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(212,184,236,0.3);
+      text-decoration: none;
+      transition: padding-left 0.2s;
+    }
+
+    .social-link:last-child { border-bottom: none; }
+    .social-link:hover { padding-left: 0.4rem; }
+
+    .social-icon { font-size: 1.1rem; }
+
+    .social-name {
+      font-size: 0.88rem; font-weight: 600; color: var(--text-mid);
+      transition: color 0.2s;
+    }
+
+    .social-link:hover .social-name { color: var(--violet); }
+
+    .social-handle {
+      font-size: 0.78rem; color: var(--text-light);
+      margin-left: auto;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--mist);
+      border-top: 1px solid var(--lilac);
+      padding: 1.2rem 4rem;
+      text-align: center;
+    }
+
+    .footer-inner {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.4rem; flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      font-size: 0.76rem; color: var(--text-light);
+    }
+
+    .footer-links { display: inline-flex; gap: 0; list-style: none; }
+
+    .footer-links li::before {
+      content: '·'; color: var(--text-light); margin: 0 6px; font-size: 0.76rem;
+    }
+
+    .footer-links a {
+      font-size: 0.76rem; color: var(--text-light);
+      text-decoration: none; transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--violet); }
+
+    /* ── RESPONSIVE MOBILE FIX ── */
+    @media (max-width: 768px) {
+      nav { 
+        padding: 1.2rem 1.5rem; 
+        flex-direction: column; 
+        gap: 1rem; 
+      }
+      .nav-brand { 
+        font-size: 2.2rem; 
+        text-align: center; 
+      }
+      .nav-links { 
+        gap: 1.2rem; 
+        flex-wrap: wrap; 
+        justify-content: center; 
+      }
+      .nav-links a { 
+        font-size: 0.9rem; 
+      }
+
+      .page-header { 
+        padding: 5rem 1.5rem 3rem; 
+        text-align: center; 
+      }
+      .page-title { 
+        font-size: 2.5rem; 
+      }
+      .page-sub { 
+        font-size: 1rem; 
+      }
+      .page-header::before { 
+        font-size: 4rem; 
+        right: 50%; 
+        transform: translate(50%, -50%); 
+        width: 100%;
+        text-align: center;
+      }
+
+      .main-content { 
+        padding: 2rem 1rem 3rem; 
+      }
+      .article-body, .info-card-body { 
+        padding: 1.2rem; 
+      }
+      .article-title { 
+        font-size: 1.4rem; 
+      }
+      .article-text, .info-value { 
+        font-size: 0.95rem; 
+      }
+      .info-card-title {
+        font-size: 0.95rem;
+      }
+
+      footer { 
+        flex-direction: column; 
+        gap: 1rem; 
+        padding: 1.5rem; 
+        text-align: center; 
+      }
+      .footer-inner {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+    }
+  </style>
 </head>
-<body background="purplebg.jpg" bgcolor="#e8d5f5" text="#2d004f" link="#6a1b9a" vlink="#3d0066">
+<body>
 
-  <!-- ===== NAVIGATION ===== -->
-  <table width="100%" bgcolor="#d4b8ec" border="0" cellpadding="20">
-    <tr>
-      <td width="30%">
-        <font face="Georgia" size="6" color="#3d0066"><b>Personal Page</b></font>
-      </td>
-      <td align="right">
-        <font face="Arial" size="5">
-          <a href="index.html">Home</a>
-          &nbsp;&nbsp;|&nbsp;&nbsp;
-          <a href="gallery.html">Gallery</a>
-          &nbsp;&nbsp;|&nbsp;&nbsp;
-          <a href="blog.html">Blog</a>
-          &nbsp;&nbsp;|&nbsp;&nbsp;
-          <b>Contact</b>
-        </font>
-      </td>
-    </tr>
-  </table>
+  <nav>
+    <a href="index.html" class="nav-brand">Personal Page</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
 
-  <br><br>
+  <header class="page-header">
+    <h1 class="page-title">Hubungi <em>Saya</em></h1>
+    <p class="page-sub">Reach me through my contact information below</p>
+  </header>
 
-  <!-- ===== PAGE TITLE ===== -->
-  <table width="100%" border="0" cellpadding="10">
-    <tr>
-      <td align="center">
-        <h1>
-          <font face="Georgia" color="#3d0066">Hubungi </font>
-          <font face="Georgia" color="#9b5fc7"><i>Saya</i></font>
-        </h1>
-        <font face="Arial" size="3" color="#5a3570">
-          Reach me through my contact information
-        </font>
-      </td>
-    </tr>
-  </table>
+  <div class="main-content">
+    <div class="info-panel">
 
-  <br>
-  <hr color="#c9a8e8" size="2" width="80%">
-  <br>
+      <span class="info-section-label">Data Mahasiswa</span>
 
-  <!-- ===== MAIN LAYOUT ===== -->
-  <table width="85%" align="center" border="0" cellspacing="24" cellpadding="0">
-    <tr valign="top">
+      <div class="info-card reveal">
+        <div class="info-card-header">
+          <span class="info-card-header-icon">🎓</span>
+          <h3 class="info-card-title">Identitas Mahasiswa</h3>
+        </div>
+        <div class="info-card-body">
 
-      <!-- ===== CONTACT INFO ===== -->
-      <td width="40%">
+          <div class="info-row">
+            <span class="info-icon">👤</span>
+            <div>
+              <p class="info-label">Nama Lengkap</p>
+              <p class="info-value">Michelle Maria Michiko Sumuweng</p>
+            </div>
+          </div>
 
-        <!-- INFO KONTAK -->
-        <table width="70%" align="center" bgcolor="#f0e6ff" border="2" bordercolor="#c9a8e8" cellpadding="18">
-          <tr>
-            <td bgcolor="#d4b8ec">
-              <font face="Georgia" size="4" color="#3d0066"><b>Informasi Kontak</b></font>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <table width="100%" border="0" cellpadding="8">
-                <tr>
-                  <td width="36" align="center" valign="top">
-                    <font size="3">&#128205;</font>
-                  </td>
-                  <td>
-                    <font face="Arial" size="3" color="#3d0066"><b>Lokasi</b></font><br>
-                    <font face="Arial" size="2" color="#5a3570">Manado, Sulawesi Utara<br>Indonesia</font>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2"><hr color="#c9a8e8" size="1"></td>
-                </tr>
-                <tr>
-                  <td align="center" valign="top">
-                    <font size="3">&#9993;</font>
-                  </td>
-                  <td>
-                    <font face="Arial" size="3" color="#3d0066"><b>Email</b></font><br>
-                    <font face="Arial" size="2">
-                      <a href="mailto:michellesumuweng026@student.unsrat.ac.id">michellesumuweng026@student.unsrat.ac.id</a><br>
-                      <a href="mailto:mariamiciko060@gmail.com">mariamiciko060@gmail.com</a>
-                    </font>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2"><hr color="#c9a8e8" size="1"></td>
-                </tr>
-                <tr>
-                  <td align="center" valign="top">
-                    <font size="3">&#128222;</font>
-                  </td>
-                  <td>
-                    <font face="Arial" size="3" color="#3d0066"><b>Telepon</b></font><br>
-                    <font face="Arial" size="2" color="#5a3570">+62 853-4352-5267</font>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
+          <div class="info-row">
+            <span class="info-icon">🪪</span>
+            <div>
+              <p class="info-label">NIM</p>
+              <p class="info-value">
+                <span class="badge">240211060073</span>
+              </p>
+            </div>
+          </div>
 
-        <br>
+          <div class="info-row">
+            <span class="info-icon">📚</span>
+            <div>
+              <p class="info-label">Program Studi</p>
+              <p class="info-value">Teknik Informatika</p>
+            </div>
+          </div>
 
-        <!-- SOSIAL MEDIA -->
-        <table width="70%" align="center"bgcolor="#f0e6ff" border="2" bordercolor="#c9a8e8" cellpadding="18">
-          <tr>
-            <td bgcolor="#d4b8ec">
-              <font face="Georgia" size="4" color="#3d0066"><b>Media Sosial</b></font>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <font face="Arial" size="3">
-                <ul>
-                  <li>
-                    &#128247;<a href="https://www.instagram.com/micikoxox/">Instagram</a>
-                    </a>
-                    &nbsp;
-                    <font color="#9e7fb8">@micikoxox</font>
-                  </li>
-                  <br>
-                  <li>
-                    &#128064;<a href="https://github.com/Isherune">GitHub</a>
-                    </a>
-                    &nbsp;
-                    <font color="#9e7fb8">github.com/Isherune</font>
-                  </li>
-                  <br>
-                  <li>
-                    &#127760;<a href="https://www.facebook.com/michellemariamiciko">Facebook</a>
-                    </a>
-                    &nbsp;
-                    <font color="#9e7fb8">Michelle Sumuweng</font>
-                  </li>
-                </ul>
-              </font>
-            </td>
-          </tr>
-        </table>
+          <div class="info-row">
+            <span class="info-icon">🏛️</span>
+            <div>
+              <p class="info-label">Universitas</p>
+              <p class="info-value">Universitas Sam Ratulangi, Manado</p>
+            </div>
+          </div>
 
-        <br>
-      </td>
-     </tr>
-   </table>
+          <div class="info-row">
+            <span class="info-icon">📅</span>
+            <div>
+              <p class="info-label">Semester</p>
+              <p class="info-value">Semester 4 (Genap 2025/2026)</p>
+            </div>
+          </div>
 
-  <br><br>
-  <hr color="#c9a8e8" size="2" width="80%">
+          <div class="info-row">
+            <span class="info-icon">💻</span>
+            <div>
+              <p class="info-label">Mata Kuliah</p>
+              <p class="info-value">Pemrograman Web — TIK2032</p>
+            </div>
+          </div>
 
-  <!-- ===== FOOTER ===== -->
+        </div>
+      </div>
+
+      <span class="info-section-label" style="margin-top:0.5rem;">Informasi Kontak</span>
+
+      <div class="info-card reveal" style="transition-delay:0.1s">
+        <div class="info-card-header">
+          <span class="info-card-header-icon">📋</span>
+          <h3 class="info-card-title">Detail Kontak</h3>
+        </div>
+        <div class="info-card-body">
+
+          <div class="info-row">
+            <span class="info-icon">📍</span>
+            <div>
+              <p class="info-label">Lokasi</p>
+              <p class="info-value">Manado, Sulawesi Utara<br>Indonesia</p>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <span class="info-icon">✉️</span>
+            <div>
+              <p class="info-label">Email</p>
+              <p class="info-value">
+                <a href="mailto:michellesumuweng026@student.unsrat.ac.id">michellesumuweng026@student.unsrat.ac.id</a><br>
+                <a href="mailto:mariamiciko060@gmail.com">mariamiciko060@gmail.com</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <span class="info-icon">📞</span>
+            <div>
+              <p class="info-label">Telepon</p>
+              <p class="info-value">+62 853-4352-5267</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="info-card reveal" style="transition-delay:0.2s">
+        <div class="info-card-header">
+          <span class="info-card-header-icon">🌐</span>
+          <h3 class="info-card-title">Media Sosial</h3>
+        </div>
+        <div class="info-card-body">
+          <a class="social-link" href="https://www.instagram.com/micikoxox/" target="_blank">
+            <span class="social-icon">📸</span>
+            <span class="social-name">Instagram</span>
+            <span class="social-handle">@micikoxox</span>
+          </a>
+          <a class="social-link" href="https://github.com/Isherune" target="_blank">
+            <span class="social-icon">👾</span>
+            <span class="social-name">GitHub</span>
+            <span class="social-handle">Isherune</span>
+          </a>
+          <a class="social-link" href="https://www.facebook.com/michellemariamiciko" target="_blank">
+            <span class="social-icon">🌐</span>
+            <span class="social-name">Facebook</span>
+            <span class="social-handle">Michelle Sumuweng</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <footer>
-  <table width="100%" bgcolor="#d4b8ec" border="0" cellpadding="14">
-    <tr>
-      <td align="center">
-        <font face="Arial" size="2" color="#5a3570">
-          &copy; 2026 <b>MichelleSumuweng</b> &mdash; Dibuat dengan HTML5
-          &nbsp;|&nbsp;
-          <a href="index.html">Home</a> &nbsp;
-          <a href="gallery.html">Gallery</a> &nbsp;
-          <a href="blog.html">Blog</a> &nbsp;
-          <a href="contact.html">Contact</a>
-        </font>
-      </td>
-    </tr>
-  </table>
-</footer>
+    <div class="footer-inner">
+      <span class="footer-copy">&copy; 2026 Michelle Sumuweng &mdash; Dibuat dengan HTML5, CSS3 &amp; JavaScript</span>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll Reveal — murni JavaScript, tanpa library
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
